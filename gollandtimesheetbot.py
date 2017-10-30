@@ -1,6 +1,15 @@
 #add shebang line for launchd
+
+## packages for handling web request and scrape ##
 from bs4 import BeautifulSoup
 import os,requests,sys
+## packages for handling email function ##
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+from email.mime.image import MIMEImage
+
 
 request = requests.get('http://contest.newyorker.com/')
 content = request.content
@@ -35,26 +44,8 @@ img_file.close()
 print('image downloaded')
 
 
-
-
-import datetime,bs4,os,requests,sys
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
-from email.mime.image import MIMEImage
-
-# emailList = {'Jackson': 'Jackson.Gilman-Forlini@baltimorecity.gov','Berke':'Berke.Attila@baltimorecity.gov',
-#             'Catherine':'Catherine.Burns2@baltimorecity.gov','Nick':'Nick.Fontanez@baltimorecity.gov',
-#             'Willem':'Willem.Elsevier@baltimorecity.gov','Babila':'Babila.Lima@baltimorecity.gov',
-#             'Varghese':'Varghese.Paranilam@baltimorecity.gov','Cole':'Coleman.Devries@baltimorecity.gov',
-#             'Ben':'Benjamin.Brosch@baltimorecity.gov','Evan':'Evan.Cook@baltimorecity.gov',
-#             'Troy':'Troy.Parrish@baltimorecity.gov','Terrence':'Terrence.Jennings@baltimorecity.gov',
-#             'Ron':'Ronald.Christmas@baltimorecity.gov','Janice':'Janice.Hyatt@baltimorecity.gov',
-#             'Ryan':'Ryan.Trout@baltimorecity.gov','Kay':'kagesta.campbell@baltimorecity.gov',
-#             'Gary':'Gary.Holland@baltimorecity.gov'}
-
-emailList = {'bl':'babila.lima30@gmail.com','babs':'babila.lima@baltimorecity.gov','btest':'gollandbot@gmail.com'}
+### UNCOMMENT THIS BELOW LINE AND ADD THE TARGET EMAIL RECIPIENTS NAMES & EMAILS TO THE DICTIONARY ###
+# emailList = {'a_person':'a_person@email.com','another_person':'another_person@email.com'}
 
 
 for name,email in emailList.items():
@@ -82,7 +73,7 @@ for name,email in emailList.items():
     smtpObj.ehlo()
     smtpObj.starttls()
     smtpObj.ehlo()
-    smtpObj.login('gollandbot@gmail.com',sys.argv[1]) #add pass for launchd
+    smtpObj.login('gollandbot@gmail.com',sys.argv[1])
     smtpObj.sendmail(msg['From'],msg['To'],msg.as_string())
     smtpObj.quit()
     print('Email sent to ' + name)
